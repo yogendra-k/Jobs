@@ -1,0 +1,13 @@
+C:\YK\study\Prj\Jobs\CoursePreReqResolver\CoursePreReqResolver\bin\Debug\netcoreapp3.1\CoursePreReqResolver.exe
+C:\YK\study\Prj\Jobs\CoursePreReqResolver\CoursePreReqResolver\bin\Debug\netcoreapp3.1\CoursePreReqResolver.deps.json
+C:\YK\study\Prj\Jobs\CoursePreReqResolver\CoursePreReqResolver\bin\Debug\netcoreapp3.1\CoursePreReqResolver.runtimeconfig.json
+C:\YK\study\Prj\Jobs\CoursePreReqResolver\CoursePreReqResolver\bin\Debug\netcoreapp3.1\CoursePreReqResolver.runtimeconfig.dev.json
+C:\YK\study\Prj\Jobs\CoursePreReqResolver\CoursePreReqResolver\bin\Debug\netcoreapp3.1\CoursePreReqResolver.dll
+C:\YK\study\Prj\Jobs\CoursePreReqResolver\CoursePreReqResolver\bin\Debug\netcoreapp3.1\CoursePreReqResolver.pdb
+C:\YK\study\Prj\Jobs\CoursePreReqResolver\CoursePreReqResolver\obj\Debug\netcoreapp3.1\CoursePreReqResolver.csprojAssemblyReference.cache
+C:\YK\study\Prj\Jobs\CoursePreReqResolver\CoursePreReqResolver\obj\Debug\netcoreapp3.1\CoursePreReqResolver.AssemblyInfoInputs.cache
+C:\YK\study\Prj\Jobs\CoursePreReqResolver\CoursePreReqResolver\obj\Debug\netcoreapp3.1\CoursePreReqResolver.AssemblyInfo.cs
+C:\YK\study\Prj\Jobs\CoursePreReqResolver\CoursePreReqResolver\obj\Debug\netcoreapp3.1\CoursePreReqResolver.csproj.CoreCompileInputs.cache
+C:\YK\study\Prj\Jobs\CoursePreReqResolver\CoursePreReqResolver\obj\Debug\netcoreapp3.1\CoursePreReqResolver.dll
+C:\YK\study\Prj\Jobs\CoursePreReqResolver\CoursePreReqResolver\obj\Debug\netcoreapp3.1\CoursePreReqResolver.pdb
+C:\YK\study\Prj\Jobs\CoursePreReqResolver\CoursePreReqResolver\obj\Debug\netcoreapp3.1\CoursePreReqResolver.genruntimeconfig.cache

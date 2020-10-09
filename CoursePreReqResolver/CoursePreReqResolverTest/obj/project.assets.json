@@ -1634,6 +1634,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
+      },
+      "CoursePreReqResolver/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/CoursePreReqResolver.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CoursePreReqResolver.dll": {}
+        }
       }
     }
   },
@@ -5705,10 +5715,16 @@
         "system.xml.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xdocument.nuspec"
       ]
+    },
+    "CoursePreReqResolver/1.0.0": {
+      "type": "project",
+      "path": "../CoursePreReqResolver/CoursePreReqResolver.csproj",
+      "msbuildProject": "../CoursePreReqResolver/CoursePreReqResolver.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "CoursePreReqResolver >= 1.0.0",
       "MSTest.TestAdapter >= 2.1.0",
       "MSTest.TestFramework >= 2.1.0",
       "Microsoft.NET.Test.Sdk >= 16.5.0",
@@ -5740,7 +5756,11 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\YK\\study\\Prj\\Jobs\\CoursePreReqResolver\\CoursePreReqResolver\\CoursePreReqResolver.csproj": {
+              "projectPath": "C:\\YK\\study\\Prj\\Jobs\\CoursePreReqResolver\\CoursePreReqResolver\\CoursePreReqResolver.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
