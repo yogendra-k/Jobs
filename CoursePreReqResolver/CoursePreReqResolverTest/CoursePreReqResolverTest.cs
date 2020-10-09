@@ -28,13 +28,19 @@ namespace CoursePreReqResolverTest
         }
 
         [TestMethod]
-        public void When_Input_Contains_OneElement_AllSpaces_Then_Exception_Is_Generated()
+        public void When_Input_Contains_Elements_WithAllSpaces_Then_Exception_Is_Generated()
         {
             string[] input = new string[] { "                    " };
 
             CoursePreReqResolver.CoursePreReqResolver resolver = new CoursePreReqResolver.CoursePreReqResolver();
 
             string result = resolver.GetOrderOfCourses(input);
+            Assert.AreEqual(ErrorMessages.INVALID_INPUT_MESSAGE, result);
+
+
+            input = new string[] { "A:B", "    " };
+            resolver = new CoursePreReqResolver.CoursePreReqResolver();
+            result = resolver.GetOrderOfCourses(input);
             Assert.AreEqual(ErrorMessages.INVALID_INPUT_MESSAGE, result);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CoursePreReqResolver.InputParser
@@ -22,7 +23,11 @@ namespace CoursePreReqResolver.InputParser
                 throw InputParserException.InvalidInputException(ErrorMessages.NULL_INPUT_MESSAGE);
             }
 
-            
+            if (input.Any(x=>string.IsNullOrWhiteSpace(x)))
+            {
+                throw InputParserException.InvalidInputException(ErrorMessages.INVALID_INPUT_MESSAGE);
+            }
+
         }
     }
 
