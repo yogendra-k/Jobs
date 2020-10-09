@@ -43,5 +43,17 @@ namespace CoursePreReqResolverTest
             result = resolver.GetOrderOfCourses(input);
             Assert.AreEqual(ErrorMessages.INVALID_INPUT_MESSAGE, result);
         }
+
+        [TestMethod]
+        public void When_Input_Contains_Elements_WithNoColon_Then_Exception_Is_Generated()
+        {
+            string[] input = new string[] {"HistoryRubber"};
+
+            CoursePreReqResolver.CoursePreReqResolver resolver = new CoursePreReqResolver.CoursePreReqResolver();
+
+            string result = resolver.GetOrderOfCourses(input);
+            Assert.AreEqual(ErrorMessages.INVALID_INPUT_MESSAGE, result);
+
+        }
     }
 }
