@@ -11,9 +11,12 @@ namespace CoursePreReqResolver.InputParser
         {
             ValidateInput(input);
 
+
+
             return null;
 
         }
+
 
         private void ValidateInput(string[] input)
         {
@@ -36,7 +39,4 @@ namespace CoursePreReqResolver.InputParser
 
         }
     }
-
-	
-
 }

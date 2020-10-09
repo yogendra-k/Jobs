@@ -55,5 +55,13 @@ namespace CoursePreReqResolverTest
             Assert.AreEqual(ErrorMessages.INVALID_INPUT_MESSAGE, result);
 
         }
+
+        [TestMethod]
+        public void When_Valid_Input_Then_CorrectSequence_Generated()
+        { 
+            
+        }
+
+        
     }
 }
