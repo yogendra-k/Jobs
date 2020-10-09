@@ -28,6 +28,12 @@ namespace CoursePreReqResolver.InputParser
                 throw InputParserException.InvalidInputException(ErrorMessages.INVALID_INPUT_MESSAGE);
             }
 
+            //Test if input contains ":" in every element
+            if (input.Any(x => !x.Contains(":")))
+            {
+                throw InputParserException.InvalidInputException(ErrorMessages.INVALID_INPUT_MESSAGE);
+            }
+
         }
     }
 
