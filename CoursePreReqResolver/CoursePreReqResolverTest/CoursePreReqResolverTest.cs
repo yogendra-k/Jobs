@@ -58,8 +58,17 @@ namespace CoursePreReqResolverTest
 
         [TestMethod]
         public void When_Valid_Input_Then_CorrectSequence_Generated()
-        { 
-            
+        {
+            string[] input = new string[] { "Advanced Pyrotechnics: Introduction to Fire",
+                                            "Introduction to Fire:"
+                                        };
+
+            CoursePreReqResolver.CoursePreReqResolver resolver = new CoursePreReqResolver.CoursePreReqResolver();
+
+            string expectedResult = "Introduction to Fire, Advanced Pyrotechnics";
+            string result = resolver.GetOrderOfCourses(input);
+
+            Assert.AreEqual(expectedResult, result);
         }
 
         
