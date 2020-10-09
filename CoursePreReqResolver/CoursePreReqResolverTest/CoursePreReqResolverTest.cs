@@ -3,11 +3,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace CoursePreReqResolverTest
 {
     [TestClass]
-    public class UnitTest1
+    public class CoursePreReqResolverTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestEmptyArrayInput()
         {
+            
         }
     }
 }
