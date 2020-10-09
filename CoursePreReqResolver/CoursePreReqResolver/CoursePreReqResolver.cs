@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoursePreReqResolver.InputParser;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -17,13 +18,20 @@ namespace CoursePreReqResolver
             try
             {
                 //Use the parser to parse the input into output
+                IInputParser parser = new ArrayInputParser();
+                parser.ParseInput(input);
 
                 //call the formatter to appropriately format the output
             }
-            catch (Exception)
+            catch (InputParserException ipe)
             {
-
-                throw;
+                //log the exception
+                result = ipe.Message;
+            }
+            catch (Exception )
+            {
+                //log the exception
+                result = ErrorMessages.GENERIC_ERROR_MESSAGE;
             }
 
             return result;

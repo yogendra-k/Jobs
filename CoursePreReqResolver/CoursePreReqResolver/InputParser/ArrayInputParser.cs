@@ -8,7 +8,24 @@ namespace CoursePreReqResolver.InputParser
     {
         public IEnumerable<string> ParseInput(string[] input)
         {
-            throw new NotImplementedException();
+            ValidateInput(input);
+
+            return null;
+
+        }
+
+        private void ValidateInput(string[] input)
+        {
+            //Test if input is null
+            if (input == null)
+            {
+                throw InputParserException.InvalidInputException(ErrorMessages.NULL_INPUT_MESSAGE);
+            }
+
+            
         }
     }
+
+	
+
 }
