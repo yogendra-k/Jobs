@@ -16,5 +16,15 @@ namespace CoursePreReqResolverTest
             Assert.AreEqual(string.Empty, result);
 
         }
+
+        [TestMethod]
+        public void When_Input_Is_Null_Then_Exception_Is_Generated()
+        {
+            //if the input is null, an error message is returned
+            CoursePreReqResolver.CoursePreReqResolver resolver = new CoursePreReqResolver.CoursePreReqResolver();
+
+            string result = resolver.GetOrderOfCourses(null);
+            Assert.AreEqual(ErrorMessages.NULL_INPUT_MESSAGE, result);
+        }
     }
 }
