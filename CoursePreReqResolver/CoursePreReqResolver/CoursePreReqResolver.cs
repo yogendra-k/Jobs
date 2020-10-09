@@ -1,4 +1,5 @@
-﻿using CoursePreReqResolver.InputParser;
+﻿using CoursePreReqResolver.Formatters;
+using CoursePreReqResolver.InputParser;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,9 +20,11 @@ namespace CoursePreReqResolver
             {
                 //Use the parser to parse the input into output
                 IInputParser parser = new ArrayInputParser();
-                parser.ParseInput(input);
+                var coursesInOrder = parser.ParseInput(input);
 
                 //call the formatter to appropriately format the output
+                ICourseOrderFormatter<string> formatter = new DefaultCourseOrderFormatter();
+                result = formatter.Format(coursesInOrder);
             }
             catch (InputParserException ipe)
             {
