@@ -8,48 +8,15 @@ namespace CoursePreReqResolver.InputParser
 {
     public class ArrayInputParser : IInputParser
     {
+
+        private Dictionary<string, List<string>> CourseList = new Dictionary<string, List<string>>();
+
         public IEnumerable<string> ParseInput(string[] input)
         {
             ValidateInput(input);
-            CourseAndPreReqs courseAndPreReqs = ParseInputIntoCoursesAndPreReqs(input);
 
-            List<string> coursesInOrder = new List<string>();
-            coursesInOrder.AddRange(courseAndPreReqs.NonDependentCourses);
-            List<string> visitedCourses = new List<string>();
-
-            foreach (var course in courseAndPreReqs.NonDependentCourses)
-            {
-                if (!visitedCourses.Contains(course))
-                {
-                    var dependentCourses = courseAndPreReqs.Courses[course];
-                    dependentCourses.Reverse();
-                    coursesInOrder.AddRange(dependentCourses);
-                    visitedCourses.Add(course);
-
-                }
-            }
-
-            foreach (var course in courseAndPreReqs.Courses)
-            {
-                if (!visitedCourses.Contains(course.Key))
-                {
-                    var dependentCourses = courseAndPreReqs.Courses[course.Key];
-                    dependentCourses.Reverse();
-                    coursesInOrder.AddRange(dependentCourses);
-                    visitedCourses.Add(course.Key);
-
-                }
-            }
-
-            return coursesInOrder;
-
-        }
-
-        private CourseAndPreReqs ParseInputIntoCoursesAndPreReqs(string[] input)
-        {
-            IDictionary<string, List<string>> dependencies = new Dictionary<string, List<string>>();
+            List<string> courses = new List<string>();
             List<string> nonDependentCourses = new List<string>();
-
             foreach (string coursePreReq in input)
             {
                 if (!string.IsNullOrWhiteSpace(coursePreReq))
@@ -61,24 +28,49 @@ namespace CoursePreReqResolver.InputParser
 
                     if (string.IsNullOrEmpty(preReq))
                     {
-                        nonDependentCourses.Add(course);
-                    }
-
-                    if (!string.IsNullOrEmpty(preReq))
-                    {
-                        if (!dependencies.ContainsKey(preReq))
+                        if (!courses.Contains(course))
                         {
-                            dependencies[preReq] = new List<string>();
+                            courses.Add(course);
                         }
-                        dependencies[preReq].Add(course);
-
                     }
+                    else
+                    {
+                        AddCourseAndPreReqs(course, preReq);
+                    }
+
                 }
             }
+            foreach (var item in CourseList)
+            {
+                if (!courses.Contains(item.Key))
+                {
+                    courses.Add(item.Key);
+                }
+                var list = item.Value;
+                list.Reverse();
+                courses.AddRange(list);
+            }
 
-            CourseAndPreReqs courseAndPreReqs = new CourseAndPreReqs { Courses = dependencies, NonDependentCourses = nonDependentCourses };
+            return courses;
 
-            return courseAndPreReqs;
+        }
+
+
+        private void AddCourseAndPreReqs(string course, string preReq)
+        {
+            if (CourseList.ContainsKey(preReq))
+            {
+                CourseList[preReq].Add(course);
+            }
+            else if (CourseList.ContainsKey(course))
+            {
+                
+            }
+            else
+            {
+                CourseList[preReq] = new List<string>();
+                CourseList[preReq].Add(course);
+            }
         }
 
         private void ValidateInput(string[] input)

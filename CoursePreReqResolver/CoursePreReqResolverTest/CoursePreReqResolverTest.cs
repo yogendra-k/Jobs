@@ -1,4 +1,5 @@
 using CoursePreReqResolver;
+using CoursePreReqResolver.Formatters;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CoursePreReqResolverTest
@@ -69,8 +70,35 @@ namespace CoursePreReqResolverTest
             string result = resolver.GetOrderOfCourses(input);
 
             Assert.AreEqual(expectedResult, result);
+            input = new string[] {  "Introduction to Paper Airplanes:",
+                                    "Advanced Throwing Techniques: Introduction to Paper Airplanes",
+                                    "History of Cubicle Siege Engines: Rubber Band Catapults 101",
+                                    "Advanced Office Warfare: History of Cubicle Siege Engines",
+                                    "Rubber Band Catapults 101: ",
+                                    "Paper Jet Engines: Introduction to Paper Airplanes"
+                                };
+
+            expectedResult = "Introduction to Paper Airplanes, Rubber Band Catapults 101, Paper Jet Engines, Advanced Throwing Techniques, History of Cubicle Siege Engines, Advanced Office Warfare";
+            result = resolver.GetOrderOfCourses(input);
+
+            Assert.AreEqual(expectedResult, result);
         }
 
-        
+        [TestMethod]
+        public void When_Input_Contains_Cycle_Then_Exception_Is_Generated()
+        {
+            string[] input = new string[] { "Intro to Arguing on the Internet: Godwin’s Law",
+                                            "Understanding Circular Logic: Intro to Arguing on the Internet",
+                                            "Godwin’s Law: Understanding Circular Logic"
+                                          };
+
+            CoursePreReqResolver.CoursePreReqResolver resolver = new CoursePreReqResolver.CoursePreReqResolver();
+
+            string expectedResult = ErrorMessages.INPUT_CONTAINS_CYCLE;
+            string result = resolver.GetOrderOfCourses(input);
+
+            Assert.AreEqual(expectedResult, result);
+
+        }
     }
 }
