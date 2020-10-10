@@ -11,7 +11,7 @@ namespace CoursePreReqResolver.InputParser
         /// <summary>
         /// This list contains the actual courses along with PreRequisites
         /// </summary>
-        private Dictionary<string, List<string>> CourseList = new Dictionary<string, List<string>>();
+        private Dictionary<string, List<string>> CourseList = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
         /// <summary>
         /// the list contains flattened list of dependencies. 
@@ -22,7 +22,7 @@ namespace CoursePreReqResolver.InputParser
         /// This list contains a flattened dependencies like God<-- {Intro, Circular}.
         /// This list helps in identifying cycles
         /// </summary>
-        private Dictionary<string, List<string>> FlatList = new Dictionary<string, List<string>>();
+        private Dictionary<string, List<string>> FlatList = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
         public IEnumerable<string> ParseInput(string[] input)
         {
@@ -60,7 +60,7 @@ namespace CoursePreReqResolver.InputParser
             }
             foreach (var item in CourseList)
             {
-                if (!courses.Contains(item.Key))
+                if (!courses.Contains(item.Key, StringComparer.InvariantCultureIgnoreCase))
                 {
                     courses.Add(item.Key);
                 }
@@ -82,7 +82,7 @@ namespace CoursePreReqResolver.InputParser
             }
             else if (FlatList.ContainsKey(course))
             {
-                if (FlatList[course].Contains(preReq))
+                if (FlatList[course].Contains(preReq, StringComparer.InvariantCultureIgnoreCase))
                 {
                     throw InputParserException.InvalidInputException(ErrorMessages.INPUT_CONTAINS_CYCLE);
                 }
@@ -121,7 +121,7 @@ namespace CoursePreReqResolver.InputParser
         {
             foreach (string key in CourseList.Keys)
             {
-                if (CourseList[key].Contains(course))
+                if (CourseList[key].Contains(course, StringComparer.InvariantCultureIgnoreCase))
                 {
                     return key;
                 }

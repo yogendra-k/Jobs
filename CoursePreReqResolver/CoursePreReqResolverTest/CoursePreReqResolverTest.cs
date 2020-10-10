@@ -7,6 +7,8 @@ namespace CoursePreReqResolverTest
     [TestClass]
     public class CoursePreReqResolverTest
     {
+        #region Validation Test methods
+
         [TestMethod]
         public void When_Input_Is_EmtyArray_Then_Result_Is_EmptyString()
         {
@@ -48,7 +50,7 @@ namespace CoursePreReqResolverTest
         [TestMethod]
         public void When_Input_Contains_Elements_WithNoColon_Then_Exception_Is_Generated()
         {
-            string[] input = new string[] {"HistoryRubber"};
+            string[] input = new string[] { "HistoryRubber" };
 
             CoursePreReqResolver.CoursePreReqResolver resolver = new CoursePreReqResolver.CoursePreReqResolver();
 
@@ -56,6 +58,24 @@ namespace CoursePreReqResolverTest
             Assert.AreEqual(ErrorMessages.INVALID_INPUT_MESSAGE, result);
 
         }
+
+        [TestMethod]
+        public void When_Input_Contains_Cycle_Then_Exception_Is_Generated()
+        {
+            string[] input = new string[] { "Intro to Arguing on the Internet: Godwin’s Law",
+                                            "Understanding Circular Logic: Intro to Arguing on the Internet",
+                                            "Godwin’s Law: Understanding Circular Logic"
+                                          };
+
+            CoursePreReqResolver.CoursePreReqResolver resolver = new CoursePreReqResolver.CoursePreReqResolver();
+
+            string expectedResult = ErrorMessages.INPUT_CONTAINS_CYCLE;
+            string result = resolver.GetOrderOfCourses(input);
+
+            Assert.AreEqual(expectedResult, result);
+
+        } 
+        #endregion
 
         [TestMethod]
         public void When_Valid_Input_Then_CorrectSequence_Generated()
@@ -85,20 +105,33 @@ namespace CoursePreReqResolverTest
         }
 
         [TestMethod]
-        public void When_Input_Contains_Cycle_Then_Exception_Is_Generated()
+        public void When_Valid_Input_But_CaseInsensitive_Then_CorrectSequence_Generated()
         {
-            string[] input = new string[] { "Intro to Arguing on the Internet: Godwin’s Law",
-                                            "Understanding Circular Logic: Intro to Arguing on the Internet",
-                                            "Godwin’s Law: Understanding Circular Logic"
-                                          };
+            string[] input = new string[] { "Advanced Pyrotechnics: Introduction to Fire",
+                                            "Introduction To Fire:"
+                                        };
 
             CoursePreReqResolver.CoursePreReqResolver resolver = new CoursePreReqResolver.CoursePreReqResolver();
 
-            string expectedResult = ErrorMessages.INPUT_CONTAINS_CYCLE;
+            string expectedResult = "Introduction To Fire, Advanced Pyrotechnics";
             string result = resolver.GetOrderOfCourses(input);
 
             Assert.AreEqual(expectedResult, result);
 
+            input = new string[] {  "A:",
+                                    "ATT: a",
+                                    "History : Rubber ",
+                                    "Advanced : history ",
+                                    "rubber : ",
+                                    "Paper Jet : a"
+                                };
+
+            expectedResult = "A, rubber, Paper Jet, ATT, History, Advanced";
+            result = resolver.GetOrderOfCourses(input);
+
+            Assert.AreEqual(expectedResult, result);
+
         }
+
     }
 }
