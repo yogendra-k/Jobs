@@ -8,7 +8,7 @@ namespace CoursePreReqResolver
 {
     /// <summary>
     /// This class is like a Facade. 
-    /// It specifies the <c = IINputParser></c> and also selects the formatter to format the output. 
+    /// It uses an input parser to parse the input and also provides ability to select the formatter to format the output. 
     /// </summary>
     public class CoursePreReqResolver
     {
@@ -19,7 +19,7 @@ namespace CoursePreReqResolver
             try
             {
                 //Use the parser to parse the input into output
-                IInputParser parser = new ArrayInputParser();
+                ArrayInputParser parser = new ArrayInputParser();
                 var coursesInOrder = parser.ParseInput(input);
 
                 //call the formatter to appropriately format the output

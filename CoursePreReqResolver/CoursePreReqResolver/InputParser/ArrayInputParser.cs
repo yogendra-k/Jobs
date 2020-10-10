@@ -1,12 +1,14 @@
-﻿using CoursePreReqResolver.POCOs;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace CoursePreReqResolver.InputParser
 {
-    public class ArrayInputParser : IInputParser
+    /// <summary>
+    /// Class provides ability to parse the string array input into list<string>
+    /// </summary>
+    public class ArrayInputParser 
     {
         /// <summary>
         /// This list contains the actual courses along with PreRequisites
@@ -24,6 +26,11 @@ namespace CoursePreReqResolver.InputParser
         /// </summary>
         private Dictionary<string, List<string>> FlatList = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
 
+        /// <summary>
+        /// Parses the string array into List<string> which contains the ordered courses and its PreRequisites
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public IEnumerable<string> ParseInput(string[] input)
         {
             ValidateInput(input);
@@ -73,6 +80,13 @@ namespace CoursePreReqResolver.InputParser
 
         }
 
+        /// <summary>
+        /// A course can be a pre requisite for other course as well as 
+        /// the course can have prerequisite. 
+        /// This method links the course and its pre requisites appropriately
+        /// </summary>
+        /// <param name="course">The given course</param>
+        /// <param name="preReq">The PreReq for the course</param>
         private void AddCourseAndPreReqs(string course, string preReq)
         {
             if (FlatList.ContainsKey(preReq))
@@ -86,9 +100,6 @@ namespace CoursePreReqResolver.InputParser
                 {
                     throw InputParserException.InvalidInputException(ErrorMessages.INPUT_CONTAINS_CYCLE);
                 }
-                FlatList[preReq] = CourseList[course];
-                FlatList[preReq].Add(course);
-                FlatList.Remove(course);
             }
             else
             {
@@ -96,7 +107,11 @@ namespace CoursePreReqResolver.InputParser
                 {
                     course
                 };
-
+                //This is to establish all the courses that would depend on a particular course directly or indirectly. 
+                //e.g if the input is 
+                //intro:God
+                //circular:intro
+                //then this basically means that intro and circular are dependent on course titled God
                 string key = FindPreReq(preReq);
                 if (!string.IsNullOrEmpty(key))
                 {
