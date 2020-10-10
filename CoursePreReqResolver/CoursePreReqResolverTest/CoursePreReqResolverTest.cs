@@ -133,5 +133,31 @@ namespace CoursePreReqResolverTest
 
         }
 
+        [TestMethod]
+        public void When_Input_Contains_Only_OneCourseNoDependency_Then_CorrectSequence_Generated()
+        {
+            string[] input = new string[] { "Advanced Pyrotechnics: "};
+
+            CoursePreReqResolver.CoursePreReqResolver resolver = new CoursePreReqResolver.CoursePreReqResolver();
+
+            string expectedResult = "Advanced Pyrotechnics";
+            string result = resolver.GetOrderOfCourses(input);
+
+            Assert.AreEqual(expectedResult, result);
+        }
+
+        [TestMethod]
+        public void When_Input_Contains_TwoCoursesNoDependency_Then_CorrectSequence_Generated()
+        {
+            string[] input = new string[] { "Advanced Pyrotechnics: ","Introduction to Fire:" };
+
+            CoursePreReqResolver.CoursePreReqResolver resolver = new CoursePreReqResolver.CoursePreReqResolver();
+
+            string expectedResult = "Advanced Pyrotechnics, Introduction to Fire";
+            string result = resolver.GetOrderOfCourses(input);
+
+            Assert.AreEqual(expectedResult, result);
+        }
+
     }
 }
