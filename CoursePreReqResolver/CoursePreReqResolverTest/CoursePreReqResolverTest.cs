@@ -80,16 +80,18 @@ namespace CoursePreReqResolverTest
         [TestMethod]
         public void When_Valid_Input_Then_CorrectSequence_Generated()
         {
+            CoursePreReqResolver.CoursePreReqResolver resolver = new CoursePreReqResolver.CoursePreReqResolver();
+
             string[] input = new string[] { "Advanced Pyrotechnics: Introduction to Fire",
                                             "Introduction to Fire:"
                                         };
 
-            CoursePreReqResolver.CoursePreReqResolver resolver = new CoursePreReqResolver.CoursePreReqResolver();
 
             string expectedResult = "Introduction to Fire, Advanced Pyrotechnics";
             string result = resolver.GetOrderOfCourses(input);
-
             Assert.AreEqual(expectedResult, result);
+
+            resolver = new CoursePreReqResolver.CoursePreReqResolver();
             input = new string[] {  "Introduction to Paper Airplanes:",
                                     "Advanced Throwing Techniques: Introduction to Paper Airplanes",
                                     "History of Cubicle Siege Engines: Rubber Band Catapults 101",
@@ -159,6 +161,19 @@ namespace CoursePreReqResolverTest
             Assert.AreEqual(expectedResult, result);
         }
 
-      
+        [TestMethod]
+        public void When_EachSubsequentCourseIsAPreReq_Then_CorrectSequence_Generated1()
+        {
+            string[] input = new string[] { "A:B", "B:C", "C:D" };
+
+            CoursePreReqResolver.CoursePreReqResolver resolver = new CoursePreReqResolver.CoursePreReqResolver();
+
+            string expectedResult = "D, C, B, A";
+            string result = resolver.GetOrderOfCourses(input);
+
+            Assert.AreEqual(expectedResult, result);
+        }
+
+
     }
 }

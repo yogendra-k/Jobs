@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 
 namespace CoursePreReqResolver.InputParser
@@ -10,11 +11,7 @@ namespace CoursePreReqResolver.InputParser
     /// </summary>
     public class ArrayInputParser 
     {
-        /// <summary>
-        /// This list contains the actual courses along with PreRequisites
-        /// </summary>
-        private Dictionary<string, List<string>> CourseList = new Dictionary<string, List<string>>(StringComparer.InvariantCultureIgnoreCase);
-
+        
         /// <summary>
         /// the list contains flattened list of dependencies. 
         /// e.g the input is 
@@ -65,16 +62,22 @@ namespace CoursePreReqResolver.InputParser
 
                 }
             }
-            foreach (var item in CourseList)
+            foreach (var item in FlatList)
             {
                 if (!courses.Contains(item.Key, StringComparer.InvariantCultureIgnoreCase))
                 {
                     courses.Add(item.Key);
                 }
                 var list = item.Value;
-                list.Reverse();
-                courses.AddRange(list);
+                foreach (var course in list)
+                {
+                    if (!courses.Contains(course, StringComparer.InvariantCultureIgnoreCase))
+                    {
+                        courses.Add(course);
+                    }
+                }
             }
+
 
             return courses;
 
@@ -91,8 +94,7 @@ namespace CoursePreReqResolver.InputParser
         {
             if (FlatList.ContainsKey(preReq))
             {
-                CourseList[preReq].Add(course);
-                FlatList[preReq].Add(course);
+                FlatList[preReq].Insert(0, course);
             }
             else if (FlatList.ContainsKey(course))
             {
@@ -100,13 +102,21 @@ namespace CoursePreReqResolver.InputParser
                 {
                     throw InputParserException.InvalidInputException(ErrorMessages.INPUT_CONTAINS_CYCLE);
                 }
+                /* if input 
+                   A:B
+                   B:C
+                   C:D
+                   this will make a flat list like B <-- A (B is the pre req to A)
+                   C <-- B,A (C is the pre req for B and A)
+                   D <-- C, B,A (D is the pre Req for C, B and A)
+                 */
+                FlatList[preReq] = FlatList[course];
+                FlatList[preReq].Insert(0,course);
+                FlatList.Remove(course);
+                
             }
             else
             {
-                CourseList[preReq] = new List<string>
-                {
-                    course
-                };
                 //This is to establish all the courses that would depend on a particular course directly or indirectly. 
                 //e.g if the input is 
                 //intro:God
@@ -134,9 +144,9 @@ namespace CoursePreReqResolver.InputParser
         /// <returns>the name of the PreReq for the course if it exists. Empty string if no PreReq found</returns>
         private string FindPreReq(string course)
         {
-            foreach (string key in CourseList.Keys)
+            foreach (string key in FlatList.Keys)
             {
-                if (CourseList[key].Contains(course, StringComparer.InvariantCultureIgnoreCase))
+                if (FlatList[key].Contains(course, StringComparer.InvariantCultureIgnoreCase))
                 {
                     return key;
                 }

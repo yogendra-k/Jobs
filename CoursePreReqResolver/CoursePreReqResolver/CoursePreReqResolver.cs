@@ -31,7 +31,7 @@ namespace CoursePreReqResolver
                 //log the exception
                 result = ipe.Message;
             }
-            catch (Exception )
+            catch (Exception e)
             {
                 //log the exception
                 result = ErrorMessages.GENERIC_ERROR_MESSAGE;
